@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen relative">
+  <!-- Top-right corner buttons -->
+  <div class="absolute top-6 right-6 text-right space-y-2">
+    <a href="#" class="text-blue-600 hover:underline font-semibold">Log in</a>
+    <br>
+    <a href="#" class="text-sm text-gray-700 hover:underline">Log in as administrator</a>
+  </div>
+
+  <!-- Center content -->
+  <div class="flex items-center justify-center h-screen">
+    <div class="text-center bg-white p-10 rounded-2xl shadow-lg max-w-md w-full">
+      <h1 class="text-3xl font-bold text-gray-800 mb-4">Library Management System</h1>
+      <div class="text-6xl mb-6">📚</div>
+      <p class="text-gray-600 text-lg mb-8">Organize, Track, and Access Your Library with Ease</p>
+
+      <!-- Search bar -->
+      <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden">
+        <input type="text" placeholder="Search for a book..." class="w-full px-4 py-2 outline-none" />
+        <button class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition">Search</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
