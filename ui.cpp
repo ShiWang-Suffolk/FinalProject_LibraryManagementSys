@@ -32,4 +32,25 @@ void showExitMessage() {
 
 void showInvalidChoiceMessage() {
     cout << "Invalid choice. Please try again.\n";
+
 }
+
+void showErrorMessage(const string& message) {
+	cout << "[Error] " << message << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
