@@ -1,6 +1,10 @@
 #ifndef CORE_H
 #define CORE_H
 
+void closeSystem();           // Close the SQLite database
+
+#include <sqlite3.h>
+
 // System Initialization
 void initializeSystem();
 
