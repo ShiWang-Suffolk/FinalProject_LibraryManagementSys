@@ -4,7 +4,7 @@ CC = g++
 CFLAGS = -std=c++17 -Wall -Wextra -pedantic -g
 LDFLAGS = -lsqlite3
 
-SRCS = main.cpp core.cpp ui.cpp
+SRCS = main.cpp core.cpp ui.cpp sqlite3.c
 OBJS = $(SRCS:.cpp=.o)
 TARGET = ls
 
