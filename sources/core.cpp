@@ -307,7 +307,6 @@ void checkOverdue() {
 	    int userID = currentUserID;
 	    fetchOverdueStatus(userID);
 	}
-}
 
 void viewBorrowingHistory() {
 	if (currentUserID < 0) { showErrorMessage("You must be logged in to view history."); return; }
