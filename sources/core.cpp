@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS loans (
 // Prompt for role and mark as logged in
 void loginUser() {
     string username, password;
-    cin.ignore();
+    if (cin.peek() == '\n')	cin.ignore();
+
     cout << "Username: "; getline(cin, username);
     cout << "Password: "; getline(cin, password);
 
