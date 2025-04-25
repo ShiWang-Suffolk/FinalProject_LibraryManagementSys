@@ -1,5 +1,6 @@
 // core.h
 #ifndef CORE_H
+#pragma once
 #define CORE_H
 
 void closeSystem();           // Close the SQLite database
