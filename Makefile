@@ -1,34 +1,65 @@
-# Makefile for Library Management System (C++ + C compatibility)
+# Makefile for Library Management System
+# Objects are placed in a separate build/ directory
 
-CXX = g++          # C++ Compiler
-CC  = gcc          # C Compiler (for .c files like sqlite3.c)
-CFLAGS = -Wall -Wextra -pedantic -g
-CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic -g
-LDFLAGS = -lsqlite3
-INCLUDES = -Iheaders
+# Compilers
+CXX       = g++
+CC        = gcc
 
-CXX_SRCS = sources/main.cpp sources/core.cpp sources/ui.cpp
-C_SRCS   = sources/sqlite3.c
-SRCS = $(CXX_SRCS) $(C_SRCS)
+# Flags
+CXXFLAGS  = -std=c++17 -Wall -Wextra -pedantic -g -MMD -MP
+CFLAGS    = -Wall -Wextra -pedantic -g -MMD -MP
 
-CXX_OBJS = $(CXX_SRCS:.cpp=.o)
-C_OBJS   = $(C_SRCS:.c=.o)
-OBJS = $(CXX_OBJS) $(C_OBJS)
+# Include dirs
+INCLUDES  = -Iheaders
 
-TARGET = ls
+# Libraries (note FLTK link order)
+LDFLAGS   = -lfltk_images -lfltk_forms -lfltk -lsqlite3
+
+# Source files
+CXX_SRCS  = sources/main.cpp sources/core.cpp sources/ui.cpp
+C_SRCS    = sources/sqlite3.c
+
+# Object directory
+OBJDIR    = build
+
+# Object files
+CXX_OBJS  = $(patsubst sources/%.cpp,$(OBJDIR)/%.o,$(CXX_SRCS))
+C_OBJS    = $(patsubst sources/%.c,$(OBJDIR)/%.o,$(C_SRCS))
+OBJS      = $(CXX_OBJS) $(C_OBJS)
+
+# Dependency files
+DEPS      = $(OBJS:.o=.d)
+
+# Final executable
+TARGET    = app
+
+.PHONY: all clean run
 
 all: $(TARGET)
 
+# Link step
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LDFLAGS)
 
-%.o: %.cpp
+# Run
+run: $(TARGET)
+	./$(TARGET)
+
+# Include generated dependency files
+-include $(DEPS)
+
+# Ensure build directory exists
+$(OBJDIR):
+	mkdir -p $@
+
+# Compile C++ sources into build/
+$(OBJDIR)/%.o: sources/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+# Compile C sources into build/
+$(OBJDIR)/%.o: sources/%.c | $(OBJDIR)
+	$(CC)  $(CFLAGS)  $(INCLUDES) -c $< -o $@
 
+# Clean build artifacts
 clean:
-	rm -f sources/*.o $(TARGET)
-
-.PHONY: all clean
+	rm -rf $(OBJDIR) $(TARGET)

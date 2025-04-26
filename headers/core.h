@@ -1,38 +1,38 @@
-// core.h
+// headers/core.h
 #ifndef CORE_H
-#pragma once
 #define CORE_H
 
-void closeSystem();           // Close the SQLite database
-
+#include <string>
 #include <sqlite3.h>
 
-// System Initialization
+// System Initialization and Closing
 void initializeSystem();
+void closeSystem();
 
 // Authentication
-void loginUser();
+void loginUser(const std::string& username, const std::string& password);
 void logoutUser();
 bool isUserLoggedIn();
-bool isAdmin();
+bool isUserAdmin();
+int getCurrentUserID();
+sqlite3* getDB();
+void setLoginState(bool success, int userID, bool admin);
 
-// Book Interaction
-void borrowBook();
-void returnBook();
-void searchBook();
-void viewBookDetails();
-void checkOverdue();
-void viewBorrowingHistory();
-
-// Information Management
-void addBook();
-void editBook();
-void deleteBook();
-void registerUser();
-
+// Book Management
+bool addBook(const std::string& title, const std::string& author, const std::string& isbn, int year, int quantity);
+bool editBook(int bookID, const std::string& newTitle, const std::string& newAuthor);
+bool deleteBook(int bookID);
 void fetchBookList();
 void fetchBookDetailsByID(int bookID);
-void fetchUserBorrowHistory(int userID);
+void searchBookByKeyword(const std::string& keyword);
+
+// Borrowing
+bool borrowBook(int bookID);
+bool returnBook(int bookID);
+void fetchBorrowHistory(int userID);
 void fetchOverdueStatus(int userID);
+
+// User Management
+bool registerUser(const std::string& name, const std::string& role, const std::string& username, const std::string& password);
 
 #endif // CORE_H

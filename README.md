@@ -48,10 +48,11 @@ make
 
 ## 👥 Default Users (for testing)
 
-| Role    | Username  | Password |
-|---------|-----------|----------|
-| Admin   | admin     | 1234     |
-| Student | student1  | 1234     |
+id	name	role	username	password
+1	Admin	admin 	admin	admin123
+2	user	student 	user	user123
+3	someone	student 	someone	someone
+4	Shi	student 	Shi	Shi456
 
 ## 📂 Project Structure
 
